@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J4X SHOPS - Instant Game Top-Up Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            cyan: '#00f2fe',
+                            blue: '#4facfe',
+                            purple: '#7f00ff',
+                            dark: '#0a0d14',
+                            card: '#121824',
+                            border: '#1e293b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #06090e;
+            color: #f1f5f9;
+        }
+        .glow-cyan {
+            box-shadow: 0 0 25px -5px rgba(0, 242, 254, 0.3);
+        }
+        .glow-purple {
+            box-shadow: 0 0 25px -5px rgba(127, 0, 255, 0.4);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #7f00ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-select {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-select.active {
+            border-color: #00f2fe;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.35);
+            transform: translateY(-2px);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0d14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f2fe;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-cyan selection:text-black">
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-[#0a0d14]/90 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-cyan to-brand-purple flex items-center justify-center font-extrabold text-black text-xl shadow-lg shadow-brand-cyan/20">
+                        J4X
+                    </div>
+                    <div>
+                        <span class="text-2xl font-black tracking-wider gradient-text">J4X SHOPS</span>
+                        <span class="block text-[10px] tracking-widest text-slate-400 font-semibold uppercase -mt-1">Gaming Top-Up Hub</span>
+                    </div>
+                </div>
+
+                <!-- Right Nav Actions -->
+                <div class="flex items-center space-x-4">
+                    <button onclick="openModal('historyModal')" class="hidden sm:flex items-center space-x-2 px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-sm font-semibold border border-slate-700 transition duration-200">
+                        <i class="fa-solid fa-clock-rotate-left text-brand-cyan"></i>
+                        <span>My Orders</span>
+                    </button>
+                    <a href="https://wa.me/2349048641612" target="_blank" class="flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold text-sm hover:opacity-90 shadow-lg shadow-emerald-500/20 transition duration-200">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span class="hidden md:inline">Live Support</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+        
+        <!-- Hero Banner -->
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-brand-dark to-slate-900 border border-slate-800 p-6 sm:p-10 mb-10 shadow-2xl">
+            <div class="absolute -top-24 -left-24 w-72 h-72 bg-brand-cyan/10 rounded-full filter blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -right-24 w-72 h-72 bg-brand-purple/20 rounded-full filter blur-3xl pointer-events-none"></div>
+            
+            <div class="relative z-10 max-w-3xl">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-xs text-brand-cyan font-medium mb-4">
+                    <span class="flex h-2 w-2 rounded-full bg-brand-cyan animate-pulse"></span>
+                    <span>Fast Automated Top-Up System</span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
+                    Instant Game Credits & <span class="gradient-text">Top-Ups</span>
+                </h1>
+                <p class="text-slate-400 text-base sm:text-lg mb-6 leading-relaxed">
+                    Refill your CODM CP, Free Fire Diamonds, and eFootball Coins at official rates within minutes. Secure payments via direct bank transfer.
+                </p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 border-t border-slate-800/80 pt-6">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-brand-cyan">
+                            <i class="fa-solid fa-bolt text-lg"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400">Processing Time</p>
+                            <p class="text-sm font-bold text-slate-200">2 - 10 Mins</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-emerald-400">
+                            <i class="fa-solid fa-shield-halved text-lg"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400">Security</p>
+                            <p class="text-sm font-bold text-slate-200">100% Safe & Verified</p>
+                        </div>
+                    </div>
+                    <div class="col-span-2 sm:col-span-1 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-purple-400">
+                            <i class="fa-solid fa-headset text-lg"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400">Customer Support</p>
+                            <p class="text-sm font-bold text-slate-200">24/7 WhatsApp</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkout Flow Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Left Side: Selection Steps (2 Columns Wide on desktop) -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- STEP 1: GAME SELECTION -->
+                <section class="bg-brand-card rounded-2xl border border-slate-800 p-6 sm:p-8">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand-cyan text-black font-extrabold text-sm">1</span>
+                        <h2 class="text-xl font-bold text-white">Select Your Game</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" id="gameGrid">
+                        <!-- CODM Card -->
+                        <div onclick="selectGame('codm')" id="game-codm" class="card-select active cursor-pointer bg-slate-900/80 border-2 border-slate-700 rounded-xl p-4 flex flex-col justify-between items-center text-center group relative overflow-hidden">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-yellow-700 flex items-center justify-center text-2xl mb-3 shadow-lg">
+                                <i class="fa-solid fa-crosshairs text-white"></i>
+                            </div>
+                            <h3 class="font-bold text-white group-hover:text-brand-cyan transition">Call of Duty: Mobile</h3>
+                            <span class="text-xs text-slate-400 mt-1">CP (COD Points)</span>
+                            <div class="absolute top-2 right-2 text-brand-cyan opacity-100 check-icon">
+                                <i class="fa-solid fa-circle-check text-lg"></i>
+                            </div>
+                        </div>
+
+                        <!-- Free Fire Card -->
+                        <div onclick="selectGame('freefire')" id="game-freefire" class="card-select cursor-pointer bg-slate-900/80 border-2 border-slate-800 hover:border-slate-600 rounded-xl p-4 flex flex-col justify-between items-center text-center group relative overflow-hidden">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center text-2xl mb-3 shadow-lg">
+                                <i class="fa-solid fa-gem text-white"></i>
+                            </div>
+                            <h3 class="font-bold text-white group-hover:text-brand-cyan transition">Free Fire</h3>
+                            <span class="text-xs text-slate-400 mt-1">Diamonds</span>
+                            <div class="absolute top-2 right-2 text-brand-cyan opacity-0 check-icon">
+                                <i class="fa-solid fa-circle-check text-lg"></i>
+                            </div>
+                        </div>
+
+                        <!-- eFootball Card -->
+                        <div onclick="selectGame('efootball')" id="game-efootball" class="card-select cursor-pointer bg-slate-900/80 border-2 border-slate-800 hover:border-slate-600 rounded-xl p-4 flex flex-col justify-between items-center text-center group relative overflow-hidden">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-800 flex items-center justify-center text-2xl mb-3 shadow-lg">
+                                <i class="fa-solid fa-football text-white"></i>
+                            </div>
+                            <h3 class="font-bold text-white group-hover:text-brand-cyan transition">eFootball</h3>
+                            <span class="text-xs text-slate-400 mt-1">eFootball Coins</span>
+                            <div class="absolute top-2 right-2 text-brand-cyan opacity-0 check-icon">
+                                <i class="fa-solid fa-circle-check text-lg"></i>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- STEP 2: PACKAGE SELECTION -->
+                <section class="bg-brand-card rounded-2xl border border-slate-800 p-6 sm:p-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center space-x-3">
+                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand-cyan text-black font-extrabold text-sm">2</span>
+                            <h2 class="text-xl font-bold text-white">Select Recharge Package</h2>
+                        </div>
+                        <span id="gameCurrencyLabel" class="text-xs font-semibold px-3 py-1 bg-slate-800 text-brand-cyan rounded-full border border-slate-700">CODM CP</span>
+                    </div>
+
+                    <!-- Dynamic Packages Container -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4" id="packageContainer">
+                        <!-- Javascript will populate packages here dynamically based on selected game -->
+                    </div>
+                </section>
+
+                <!-- STEP 3: ACCOUNT DETAILS -->
+                <section class="bg-brand-card rounded-2xl border border-slate-800 p-6 sm:p-8">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand-cyan text-black font-extrabold text-sm">3</span>
+                        <h2 class="text-xl font-bold text-white">Enter Account Information</h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label id="playerIdLabel" class="block text-sm font-semibold text-slate-300 mb-2">Player ID / Activision UID <span class="text-red-400">*</span></label>
+                            <div class="relative">
+                                <input type="text" id="playerIdInput" placeholder="Enter your Player ID" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan transition">
+                                <button type="button" onclick="showHelpModal()" class="absolute right-3 top-3 text-xs text-brand-cyan hover:underline flex items-center space-x-1">
+                                    <i class="fa-solid fa-circle-question"></i>
+                                    <span>Where to find?</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-300 mb-2">WhatsApp Phone Number <span class="text-red-400">*</span></label>
+                                <input type="tel" id="userPhone" placeholder="e.g. 09012345678" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-300 mb-2">Email Address <span class="text-slate-500 text-xs">(Optional)</span></label>
+                                <input type="email" id="userEmail" placeholder="your@email.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan transition">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- STEP 4: PAYMENT SELECTION & PROOF -->
+                <section class="bg-brand-card rounded-2xl border border-slate-800 p-6 sm:p-8">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand-cyan text-black font-extrabold text-sm">4</span>
+                        <h2 class="text-xl font-bold text-white">Payment Method (Direct Transfer)</h2>
+                    </div>
+
+                    <p class="text-sm text-slate-400 mb-4">Please transfer the total amount to any of our official accounts below and provide your transaction reference or proof.</p>
+
+                    <!-- Accounts Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                        <!-- SmartCash Account -->
+                        <div class="bg-slate-900/90 border border-slate-700/80 rounded-xl p-4 flex flex-col justify-between hover:border-brand-cyan/50 transition">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold text-emerald-400 bg-emerald-950/60 px-2.5 py-1 rounded-md border border-emerald-800/50">SmartCash PSB</span>
+                                <i class="fa-solid fa-building-columns text-slate-500"></i>
+                            </div>
+                            <div class="my-2">
+                                <span class="text-xs text-slate-400 block">Account Number</span>
+                                <span class="text-2xl font-black text-white tracking-widest" id="acc-smartcash">9048641612</span>
+                                <span class="text-xs text-slate-400 block mt-0.5">Account Name: <strong class="text-slate-200">J4X SHOPS</strong></span>
+                            </div>
+                            <button onclick="copyToClipboard('9048641612', 'SmartCash Account Number')" class="mt-2 w-full py-2 bg-slate-800 hover:bg-slate-700 text-brand-cyan rounded-lg text-xs font-bold transition flex items-center justify-center space-x-2">
+                                <i class="fa-regular fa-copy"></i>
+                                <span>Copy Account Number</span>
+                            </button>
+                        </div>
+
+                        <!-- Momo PSB Account -->
+                        <div class="bg-slate-900/90 border border-slate-700/80 rounded-xl p-4 flex flex-col justify-between hover:border-brand-cyan/50 transition">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold text-amber-400 bg-amber-950/60 px-2.5 py-1 rounded-md border border-amber-800/50">MoMo PSB</span>
+                                <i class="fa-solid fa-mobile-screen-button text-slate-500"></i>
+                            </div>
+                            <div class="my-2">
+                                <span class="text-xs text-slate-400 block">Account Number</span>
+                                <span class="text-2xl font-black text-white tracking-widest" id="acc-momo">9130416437</span>
+                                <span class="text-xs text-slate-400 block mt-0.5">Account Name: <strong class="text-slate-200">J4X SHOPS</strong></span>
+                            </div>
+                            <button onclick="copyToClipboard('9130416437', 'MoMo PSB Account Number')" class="mt-2 w-full py-2 bg-slate-800 hover:bg-slate-700 text-brand-cyan rounded-lg text-xs font-bold transition flex items-center justify-center space-x-2">
+                                <i class="fa-regular fa-copy"></i>
+                                <span>Copy Account Number</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Payment Verification Fields -->
+                    <div class="space-y-4 pt-4 border-t border-slate-800">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-300 mb-2">Paid To Which Bank? <span class="text-red-400">*</span></label>
+                                <select id="selectedBank" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-cyan transition">
+                                    <option value="SmartCash (9048641612)">SmartCash PSB (9048641612)</option>
+                                    <option value="MoMo PSB (9130416437)">MoMo PSB (9130416437)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-300 mb-2">Sender's Name / Ref No. <span class="text-red-400">*</span></label>
+                                <input type="text" id="senderName" placeholder="e.g. John Doe / Ref #12345" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan transition">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Right Side: Order Summary (Sticky Sidebar) -->
+            <div class="lg:col-span-1">
+                <div class="bg-brand-card rounded-2xl border border-slate-800 p-6 sm:p-8 sticky top-28 shadow-2xl">
+                    <h3 class="text-lg font-bold text-white mb-4 pb-3 border-b border-slate-800 flex items-center justify-between">
+                        <span>Order Summary</span>
+                        <i class="fa-solid fa-receipt text-brand-cyan"></i>
+                    </h3>
+
+                    <div class="space-y-4 text-sm">
+                        <div class="flex justify-between items-center text-slate-300">
+                            <span class="text-slate-400">Selected Game:</span>
+                            <span id="summaryGame" class="font-bold text-white">Call of Duty: Mobile</span>
+                        </div>
+
+                        <div class="flex justify-between items-center text-slate-300">
+                            <span class="text-slate-400">Package:</span>
+                            <span id="summaryPackage" class="font-bold text-brand-cyan">80 CP</span>
+                        </div>
+
+                        <div class="flex justify-between items-center text-slate-300">
+                            <span class="text-slate-400">Player ID:</span>
+                            <span id="summaryPlayerId" class="font-mono text-xs bg-slate-900 px-2 py-1 rounded text-slate-300">Not provided</span>
+                        </div>
+
+                        <div class="flex justify-between items-center text-slate-300">
+                            <span class="text-slate-400">Status:</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                                Pending Payment
+                            </span>
+                        </div>
+
+                        <div class="pt-4 border-t border-slate-800">
+                            <div class="flex justify-between items-baseline mb-2">
+                                <span class="text-slate-400 font-medium">Total Price:</span>
+                                <span id="summaryTotalPrice" class="text-2xl font-black text-white">₦1,200</span>
+                            </div>
+                            <p class="text-[11px] text-slate-500">Includes all taxes & delivery fees.</p>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="button" onclick="processOrder()" class="mt-6 w-full py-4 rounded-xl bg-gradient-to-r from-brand-cyan via-brand-blue to-brand-purple text-black font-extrabold text-base tracking-wide hover:brightness-110 active:scale-[0.98] transition shadow-lg shadow-brand-cyan/25 flex items-center justify-center space-x-2">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        <span>COMPLETE ORDER VIA WHATSAPP</span>
+                    </button>
+
+                    <div class="mt-4 flex items-center justify-center space-x-2 text-xs text-slate-400">
+                        <i class="fa-solid fa-lock text-emerald-400"></i>
+                        <span>Instant Delivery Guarantee</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-16 bg-[#0a0d14] border-t border-slate-800 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-brand-cyan flex items-center justify-center font-bold text-black text-sm">J4X</div>
+                <span class="font-bold text-white">J4X SHOPS © 2026</span>
+                <span class="text-xs text-slate-500">| All Rights Reserved.</span>
+            </div>
+
+            <div class="flex items-center space-x-6 text-sm text-slate-400">
+                <a href="javascript:void(0)" onclick="openModal('termsModal')" class="hover:text-brand-cyan transition">Terms of Service</a>
+                <a href="javascript:void(0)" onclick="openModal('privacyModal')" class="hover:text-brand-cyan transition">Privacy Policy</a>
+                <a href="https://wa.me/2349048641612" target="_blank" class="hover:text-brand-cyan transition">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Badge -->
+    <a href="https://wa.me/2349048641612" target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-emerald-500 rounded-full flex items-center justify-center text-white text-3xl shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 glow-cyan">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-20 left-1/2 transform -translate-x-1/2 z-50 bg-slate-900 border border-brand-cyan text-white px-5 py-3 rounded-xl shadow-2xl flex items-center space-x-3 opacity-0 pointer-events-none transition-all duration-300">
+        <i class="fa-solid fa-circle-check text-brand-cyan text-lg" id="toastIcon"></i>
+        <span id="toastMessage" class="text-sm font-medium">Notification message</span>
+    </div>
+
+    <!-- Help Modal (Where to find Player ID) -->
+    <div id="helpModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-brand-card border border-slate-800 rounded-2xl max-w-md w-full p-6 relative">
+            <button onclick="closeModal('helpModal')" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="text-lg font-bold text-white mb-3" id="helpModalTitle">Finding your Player ID</h3>
+            <div class="text-slate-300 text-sm space-y-3 leading-relaxed" id="helpModalContent">
+                <p>Open the game and click on your profile avatar in the main menu. Your numeric ID will be visible near your username.</p>
+            </div>
+            <button onclick="closeModal('helpModal')" class="mt-6 w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-brand-cyan rounded-xl text-sm font-bold transition">Got it</button>
+        </div>
+    </div>
+
+    <!-- Order History Modal -->
+    <div id="historyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-brand-card border border-slate-800 rounded-2xl max-w-lg w-full p-6 relative">
+            <button onclick="closeModal('historyModal')" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="text-lg font-bold text-white mb-4 flex items-center space-x-2">
+                <i class="fa-solid fa-clock-rotate-left text-brand-cyan"></i>
+                <span>Recent Orders</span>
+            </h3>
+            <div id="historyList" class="space-y-3 max-h-72 overflow-y-auto pr-1">
+                <!-- Javascript populates order history from localStorage -->
+            </div>
+            <button onclick="closeModal('historyModal')" class="mt-6 w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-sm font-bold transition">Close</button>
+        </div>
+    </div>
+
+    <!-- Terms Modal -->
+    <div id="termsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-brand-card border border-slate-800 rounded-2xl max-w-lg w-full p-6 relative">
+            <button onclick="closeModal('termsModal')" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="text-lg font-bold text-white mb-3">Terms of Service</h3>
+            <div class="text-slate-400 text-xs space-y-2 max-h-60 overflow-y-auto leading-relaxed">
+                <p>1. Please ensure your Player ID is correctly entered. J4X SHOPS will not be responsible for currency sent to an incorrect ID provided by the customer.</p>
+                <p>2. Top-ups are processed within 2 to 10 minutes after payment verification.</p>
+                <p>3. Proof of payment is required for order fulfillment.</p>
+            </div>
+            <button onclick="closeModal('termsModal')" class="mt-6 w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-sm font-bold transition">Accept & Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Real market packages & prices in NGN
+        const GAME_DATA = {
+            codm: {
+                name: 'Call of Duty: Mobile',
+                currency: 'CP',
+                idLabel: 'Player ID / Activision Email',
+                helpText: 'Open CODM -> Tap your Profile Banner at top left -> Copy your 19-digit Activision UID (or provide your Activision login email).',
+                packages: [
+                    { amount: '80 CP', price: 1200, popular: false },
+                    { amount: '420 CP', price: 5400, popular: true },
+                    { amount: '880 CP', price: 10800, popular: false },
+                    { amount: '2,400 CP', price: 27500, popular: false },
+                    { amount: '5,000 CP', price: 54000, popular: false },
+                    { amount: '10,800 CP', price: 105000, popular: false }
+                ]
+            },
+            freefire: {
+                name: 'Free Fire',
+                currency: 'Diamonds',
+                idLabel: 'Player ID (UID)',
+                helpText: 'Open Free Fire -> Tap your Avatar on top left -> Your 9 to 10 digit UID is listed under your nickname.',
+                packages: [
+                    { amount: '100 Diams', price: 1100, popular: false },
+                    { amount: '310 Diams', price: 3300, popular: true },
+                    { amount: '520 Diams', price: 5500, popular: false },
+                    { amount: '1,060 Diams', price: 10800, popular: false },
+                    { amount: '2,180 Diams', price: 21500, popular: false },
+                    { amount: '5,600 Diams', price: 53000, popular: false }
+                ]
+            },
+            efootball: {
+                name: 'eFootball',
+                currency: 'Coins',
+                idLabel: 'User ID / Konami ID',
+                helpText: 'Open eFootball -> Extras -> User Information -> User Details -> Copy your 9-digit User ID.',
+                packages: [
+                    { amount: '130 Coins', price: 1500, popular: false },
+                    { amount: '550 Coins', price: 5800, popular: true },
+                    { amount: '1,040 Coins', price: 11200, popular: false },
+                    { amount: '2,130 Coins', price: 22500, popular: false },
+                    { amount: '3,250 Coins', price: 34000, popular: false },
+                    { amount: '5,700 Coins', price: 58000, popular: false }
+                ]
+            }
+        };
+
+        // Current selection state
+        let currentGameKey = 'codm';
+        let selectedPackageIndex = 0;
+
+        // Initialize App on DOM Load
+        window.onload = function () {
+            renderPackages();
+            updateSummary();
+
+            // Realtime ID input sync to summary
+            document.getElementById('playerIdInput').addEventListener('input', function(e) {
+                const val = e.target.value.trim();
+                document.getElementById('summaryPlayerId').textContent = val || 'Not provided';
+            });
+        };
+
+        // Handle Game Selection
+        function selectGame(gameKey) {
+            currentGameKey = gameKey;
+            selectedPackageIndex = 0; // reset to first package
+
+            // Update Game Cards Visual State
+            ['codm', 'freefire', 'efootball'].forEach(key => {
+                const card = document.getElementById(`game-${key}`);
+                const checkIcon = card.querySelector('.check-icon');
+                if (key === gameKey) {
+                    card.classList.add('active', 'border-brand-cyan');
+                    card.classList.remove('border-slate-800');
+                    checkIcon.classList.remove('opacity-0');
+                    checkIcon.classList.add('opacity-100');
+                } else {
+                    card.classList.remove('active', 'border-brand-cyan');
+                    card.classList.add('border-slate-800');
+                    checkIcon.classList.remove('opacity-100');
+                    checkIcon.classList.add('opacity-0');
+                }
+            });
+
+            // Update labels
+            const gameData = GAME_DATA[gameKey];
+            document.getElementById('gameCurrencyLabel').textContent = `${gameData.name} ${gameData.currency}`;
+            document.getElementById('playerIdLabel').innerHTML = `${gameData.idLabel} <span class="text-red-400">*</span>`;
+
+            renderPackages();
+            updateSummary();
+        }
+
+        // Render Packages for current game
+        function renderPackages() {
+            const container = document.getElementById('packageContainer');
+            const gameData = GAME_DATA[currentGameKey];
+            container.innerHTML = '';
+
+            gameData.packages.forEach((pkg, index) => {
+                const isActive = index === selectedPackageIndex;
+                const pkgCard = document.createElement('div');
+                pkgCard.className = `cursor-pointer p-4 rounded-xl border-2 transition text-left relative bg-slate-900/90 ${
+                    isActive ? 'border-brand-cyan glow-cyan' : 'border-slate-800 hover:border-slate-700'
+                }`;
+                pkgCard.onclick = () => {
+                    selectedPackageIndex = index;
+                    renderPackages();
+                    updateSummary();
+                };
+
+                pkgCard.innerHTML = `
+                    ${pkg.popular ? `<span class="absolute -top-3 right-3 bg-gradient-to-r from-amber-500 to-orange-500 text-black font-extrabold text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">Best Value</span>` : ''}
+                    <div class="text-lg font-extrabold text-white">${pkg.amount}</div>
+                    <div class="text-sm font-bold text-brand-cyan mt-1">₦${pkg.price.toLocaleString()}</div>
+                `;
+                container.appendChild(pkgCard);
+            });
+        }
+
+        // Update Order Summary Panel
+        function updateSummary() {
+            const gameData = GAME_DATA[currentGameKey];
+            const selectedPkg = gameData.packages[selectedPackageIndex];
+            const playerId = document.getElementById('playerIdInput').value.trim();
+
+            document.getElementById('summaryGame').textContent = gameData.name;
+            document.getElementById('summaryPackage').textContent = selectedPkg.amount;
+            document.getElementById('summaryTotalPrice').textContent = `₦${selectedPkg.price.toLocaleString()}`;
+            document.getElementById('summaryPlayerId').textContent = playerId || 'Not provided';
+        }
+
+        // Copy Account Number Helper
+        function copyToClipboard(text, description) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast(`${description} copied to clipboard!`);
+            } catch (err) {
+                showToast(`Failed to copy.`);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        // Toast Notification System
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            toast.classList.add('opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 3000);
+        }
+
+        // Process & Generate Order via WhatsApp
+        function processOrder() {
+            const gameData = GAME_DATA[currentGameKey];
+            const selectedPkg = gameData.packages[selectedPackageIndex];
+            const playerId = document.getElementById('playerIdInput').value.trim();
+            const phone = document.getElementById('userPhone').value.trim();
+            const email = document.getElementById('userEmail').value.trim() || 'N/A';
+            const bank = document.getElementById('selectedBank').value;
+            const senderName = document.getElementById('senderName').value.trim();
+
+            // Form Validation
+            if (!playerId) {
+                showToast('Please enter your Player ID / Account details.');
+                document.getElementById('playerIdInput').focus();
+                return;
+            }
+            if (!phone) {
+                showToast('Please enter your WhatsApp Phone Number.');
+                document.getElementById('userPhone').focus();
+                return;
+            }
+            if (!senderName) {
+                showToast('Please enter Sender Name or Transaction Reference.');
+                document.getElementById('senderName').focus();
+                return;
+            }
+
+            // Save order to Local Storage History
+            const orderObj = {
+                id: 'J4X-' + Math.floor(100000 + Math.random() * 900000),
+                game: gameData.name,
+                package: selectedPkg.amount,
+                price: selectedPkg.price,
+                date: new Date().toLocaleDateString(),
+                status: 'Processing'
+            };
+            saveOrderToHistory(orderObj);
+
+            // Compose WhatsApp Message
+            const whatsappMsg = `*NEW TOP-UP ORDER - J4X SHOPS*\n` +
+                `------------------------------------\n` +
+                `🎮 *Game:* ${gameData.name}\n` +
+                `💎 *Package:* ${selectedPkg.amount}\n` +
+                `💰 *Amount Paid:* ₦${selectedPkg.price.toLocaleString()}\n` +
+                `------------------------------------\n` +
+                `👤 *Player ID:* ${playerId}\n` +
+                `📱 *Phone:* ${phone}\n` +
+                `📧 *Email:* ${email}\n` +
+                `------------------------------------\n` +
+                `🏦 *Payment Account:* ${bank}\n` +
+                `📝 *Sender Name/Ref:* ${senderName}\n` +
+                `------------------------------------\n` +
+                `_Please process my top-up immediately!_`;
+
+            const encodedUrl = `https://wa.me/2349048641612?text=${encodeURIComponent(whatsappMsg)}`;
+            
+            showToast('Redirecting to WhatsApp...');
+            setTimeout(() => {
+                window.open(encodedUrl, '_blank');
+            }, 1000);
+        }
+
+        // Local Storage Order History Handler
+        function saveOrderToHistory(order) {
+            let history = JSON.parse(localStorage.getItem('j4x_orders') || '[]');
+            history.unshift(order);
+            localStorage.setItem('j4x_orders', JSON.stringify(history.slice(0, 5)));
+            renderHistory();
+        }
+
+        function renderHistory() {
+            const historyList = document.getElementById('historyList');
+            let history = JSON.parse(localStorage.getItem('j4x_orders') || '[]');
+
+            if (history.length === 0) {
+                historyList.innerHTML = `<p class="text-xs text-slate-500 text-center py-6">No previous orders found.</p>`;
+                return;
+            }
+
+            historyList.innerHTML = history.map(item => `
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 flex items-center justify-between">
+                    <div>
+                        <div class="font-bold text-white text-sm">${item.game} (${item.package})</div>
+                        <div class="text-[11px] text-slate-400">Order ID: <span class="text-brand-cyan">${item.id}</span> • ${item.date}</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="font-bold text-emerald-400 text-sm">₦${item.price.toLocaleString()}</div>
+                        <span class="text-[10px] text-amber-400 bg-amber-950/50 px-2 py-0.5 rounded border border-amber-800/40">${item.status}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Modal Utilities
+        function showHelpModal() {
+            const gameData = GAME_DATA[currentGameKey];
+            document.getElementById('helpModalTitle').textContent = `Finding your ${gameData.name} ID`;
+            document.getElementById('helpModalContent').innerHTML = `<p>${gameData.helpText}</p>`;
+            openModal('helpModal');
+        }
+
+        function openModal(id) {
+            if (id === 'historyModal') renderHistory();
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
