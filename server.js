@@ -7,20 +7,21 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve static files directly from the ROOT directory
+// Serve static files from root directory
 app.use(express.static(__dirname));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
-app.get('/api/health', (req, res) => {
-    res.status(200).json({ status: 'OK', message: 'J4X SHOPS Backend Active' });
+// Serve index.html for main page requests
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Serve index.html from the root folder
+// Fallback for any other page requests
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(PORT, () => {
-    console.log(`J4X SHOPS server running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
